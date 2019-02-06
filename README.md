@@ -1,2 +1,2 @@
 # unicorn-game
-um jogo de unicórnios lindos e fofinhos que subitamente tenta encontrar a sua felicidade e estamos a tentar fazendo o jogo :)
+Um jogo em que um unicórnio lindo e fofinho subitamente tenta encontrar a sua felicidade :)
