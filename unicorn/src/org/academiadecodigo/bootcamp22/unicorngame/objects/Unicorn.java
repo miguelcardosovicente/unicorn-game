@@ -46,22 +46,18 @@ public class Unicorn implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        if(!canMove()) {
-            return;
-        }
-
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_UP:
-                unicornPicture.translate(0, -10);
+                moveUp();
                 break;
             case KeyboardEvent.KEY_DOWN:
-                unicornPicture.translate(0, 10);
+                moveDown();
                 break;
             case KeyboardEvent.KEY_LEFT:
-                unicornPicture.translate(-10, 0);
+                moveLeft();
                 break;
             case KeyboardEvent.KEY_RIGHT:
-                unicornPicture.translate(10, 0);
+                moveRight();
                 break;
         }
 
@@ -72,12 +68,36 @@ public class Unicorn implements KeyboardHandler {
         return;
     }
 
-    private boolean canMove() {
+    private void moveUp() {
+
         if(unicornPicture.getY() >= 50) {
-            return true;
+            unicornPicture.translate(0, -10);
         }
 
-        return false;
+    }
+
+    private void moveDown() {
+
+        if(unicornPicture.getMaxY() <= 640) {
+            unicornPicture.translate(0, 10);
+        }
+
+    }
+
+    private void moveLeft() {
+
+        if(unicornPicture.getX() >= 10) {
+            unicornPicture.translate(-10, 0);
+        }
+
+    }
+
+    private void moveRight() {
+
+        if(unicornPicture.getMaxX() <= 600) {
+            unicornPicture.translate(10, 0);
+        }
+
     }
 
 }
