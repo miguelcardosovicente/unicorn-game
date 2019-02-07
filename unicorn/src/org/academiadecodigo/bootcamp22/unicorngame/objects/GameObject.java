@@ -1,31 +1,32 @@
 package org.academiadecodigo.bootcamp22.unicorngame.objects;
 
+import org.academiadecodigo.bootcamp22.unicorngame.RandomGenerator;
 import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
 
-public abstract class GameObject {
+import java.util.Comparator;
+
+public class GameObject {
 
     private int value;
+    private String path;
+
     private GameObjectsType type;
     private Position position;
 
-    public GameObject() {
-        /**
-         * Get the value of our object
-         */
-        value = type.getDamage();
+    public GameObject(GameObjectsType type) {
+        this.type = type;
+        this.path = type.getPicturePath();
 
-        /** Create a new position for our object */
-        this.position = new Position();
+        value = type.getDamage();
+        this.position = new Position(60, 60);
 
     }
 
-     public void getValue(){
+    public Position getPosition() {
+        return position;
+    }
 
-        //unicorn not implemented
-
-     }
-
-
-
-
+    public String getPath() {
+        return path;
+    }
 }

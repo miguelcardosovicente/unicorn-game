@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp22.unicorngame.objects;
+package org.academiadecodigo.bootcamp22.unicorngame;
 
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
