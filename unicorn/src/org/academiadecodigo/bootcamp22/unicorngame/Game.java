@@ -6,7 +6,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
 
-    private Picture background = new Picture(10, 50, "resources/background.jpg");
+    private Picture background = new Picture(10, 50, "resources/background_sad.jpg");
     private Unicorn unicorn = new Unicorn();
     private TimeCounter timer = new TimeCounter(15);
 
