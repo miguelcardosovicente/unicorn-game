@@ -6,23 +6,20 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
 
+    private Picture background = new Picture(10, 50, "resources/background.jpg");
     private Unicorn unicorn = new Unicorn();
-
     private TimeCounter timer = new TimeCounter(15);
 
     public void start() {
 
-        Picture background = new Picture(10, 50, "resources/background.jpg");
         background.draw();
 
         timer.start();
 
-        unicorn.getUnicornPicture().draw();
         unicorn.move();
 
-
-
-
     }
+
+
 
 }

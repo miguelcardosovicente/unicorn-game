@@ -21,7 +21,7 @@ public class TimeCounter {
     public void start() {
 
         secondsLeft = totalSeconds;
-        timerText = new Text(520, 20, "00 : " + secondsLeft);
+        timerText = new Text(525, 20, "00 : " + secondsLeft);
         timerText.grow(50, 30);
         timerText.draw();
 
@@ -39,7 +39,7 @@ public class TimeCounter {
                 }
 
                 if(secondsLeft == 0) {
-
+                    //what shows when time ends
                     Rectangle rectangle = new Rectangle(10, 50, 600, 600);
                     rectangle.draw();
                     rectangle.fill();
@@ -47,7 +47,7 @@ public class TimeCounter {
                     timer.cancel();
                 }
             }
-        }, 0, 1000);
+        }, 1000, 1000);
 
     }
 

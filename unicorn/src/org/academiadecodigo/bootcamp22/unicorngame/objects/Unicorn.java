@@ -19,11 +19,12 @@ public class Unicorn implements KeyboardHandler {
 
     private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon.png");
 
-    public Picture getUnicornPicture() {
-        return unicornPicture;
-    }
+    private HappinessMeter meter = new HappinessMeter();
 
     public void move() {
+
+        unicornPicture.draw();
+        meter.draw();
 
         eventUp.setKey(KeyboardEvent.KEY_UP);
         eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -71,7 +72,9 @@ public class Unicorn implements KeyboardHandler {
     private void moveUp() {
 
         if(unicornPicture.getY() >= 50) {
-            unicornPicture.translate(0, -10);
+            happiness += 10;
+            meter.fillMeter(happiness);
+            unicornPicture.translate(0, -60);
         }
 
     }
@@ -79,7 +82,9 @@ public class Unicorn implements KeyboardHandler {
     private void moveDown() {
 
         if(unicornPicture.getMaxY() <= 640) {
-            unicornPicture.translate(0, 10);
+            happiness -= 10;
+            meter.fillMeter(happiness);
+            unicornPicture.translate(0, 60);
         }
 
     }
@@ -87,7 +92,7 @@ public class Unicorn implements KeyboardHandler {
     private void moveLeft() {
 
         if(unicornPicture.getX() >= 10) {
-            unicornPicture.translate(-10, 0);
+            unicornPicture.translate(-60, 0);
         }
 
     }
@@ -95,7 +100,7 @@ public class Unicorn implements KeyboardHandler {
     private void moveRight() {
 
         if(unicornPicture.getMaxX() <= 600) {
-            unicornPicture.translate(10, 0);
+            unicornPicture.translate(60, 0);
         }
 
     }
