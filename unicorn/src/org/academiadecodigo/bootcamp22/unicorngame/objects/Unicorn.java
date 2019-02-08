@@ -17,18 +17,17 @@ public class Unicorn implements KeyboardHandler {
     private KeyboardEvent eventLeft = new KeyboardEvent();
     private KeyboardEvent eventRight = new KeyboardEvent();
 
-    private int happiness = 30;
+    private int happiness = 0;
+
+    private Picture background = new Picture(10, 50, "resources/background_sad.jpg");
 
     private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon_left.png");
 
     private HappinessMeter meter = new HappinessMeter();
 
-    public int getHappiness() {
-        return happiness;
-    }
-
     public void move() {
 
+        background.draw();
         unicornPicture.draw();
         meter.draw();
 
@@ -78,8 +77,12 @@ public class Unicorn implements KeyboardHandler {
     private void moveUp() {
 
         if(unicornPicture.getY() >= 50) {
+
             happiness += 10;
+
             meter.fillMeter(happiness);
+
+            updateBackground();
 
             unicornPicture.translate(0, -60);
         }
@@ -90,7 +93,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getMaxY() <= 640) {
 
-            happiness -= 10;
+            happiness -= 5;
 
             Rectangle blank = new Rectangle(13, 14,  151, 24);
             blank.setColor(Color.WHITE);
@@ -98,6 +101,9 @@ public class Unicorn implements KeyboardHandler {
             blank.fill();
 
             meter.fillMeter(happiness);
+
+            updateBackground();
+
             unicornPicture.translate(0, 60);
         }
 
@@ -107,12 +113,9 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getX() >= 10) {
 
-            int currentX = unicornPicture.getX();
-            int currentY = unicornPicture.getY();
+            unicornPicture.load("resources/unicornicon_left.png");
 
-            unicornPicture.delete();
-            unicornPicture = new Picture(currentX, currentY, "resources/unicornicon_left.png");
-            unicornPicture.draw();
+            updateBackground();
 
             unicornPicture.translate(-60, 0);
         }
@@ -123,15 +126,28 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getMaxX() <= 600) {
 
-            int currentX = unicornPicture.getX();
-            int currentY = unicornPicture.getY();
+            unicornPicture.load("resources/unicornicon_right.png");
 
-            unicornPicture.delete();
-            unicornPicture = new Picture(currentX, currentY, "resources/unicornicon_right.png");
-            unicornPicture.draw();
+            updateBackground();
 
             unicornPicture.translate(60, 0);
         }
+
+    }
+
+    private void updateBackground() {
+
+        if(happiness < 40) {
+            background.load("resources/background_sad.jpg");
+            return;
+        }
+
+        if(happiness > 70) {
+            background.load("resources/background_happy.jpg");
+            return;
+        }
+
+        background.load("resources/background_medium.jpg");
 
     }
 
@@ -163,10 +179,6 @@ public class Unicorn implements KeyboardHandler {
             happinessFilling = new Rectangle(13, 14, percentageHappiness * 1.51, 24);
             draw();
 
-        }
-
-        public void delete() {
-            happinessFilling.delete();
         }
 
     }
