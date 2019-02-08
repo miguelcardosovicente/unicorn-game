@@ -27,8 +27,6 @@ public class Game {
     private void init() {
         Picture background = new Picture(10, 50, "resources/background.jpg");
         background.draw();
-
-        unicorn.getUnicornPicture().grow(-50, -50);
         unicorn.getUnicornPicture().draw();
         unicorn.move();
     }
@@ -42,6 +40,8 @@ public class Game {
             while (!verifyPosition(generated)) {
                generated =  GameObjectFactory.getInstance();
             };
+
+            gameObjects.add(generated);
 
         }
     }
@@ -59,10 +59,17 @@ public class Game {
 
     private void drawObjects() {
 
-        System.out.println(gameObjects.get(0));
+        for (int i = 0; i < gameObjects.size(); i++) {
+            Picture picture = new Picture(gameObjects.get(i).getPosition().getX(), gameObjects.get(i).getPosition().getY(), gameObjects.get(i).getPath());
+            picture.draw();
 
-        System.out.println("x: " + gameObjects.get(0).getPosition().getX());
-        System.out.println("y: " + gameObjects.get(0).getPosition().getY());
+            System.out.println("object: " + gameObjects.get(i).getTypeString());
+            System.out.println("x: " + gameObjects.get(i).getPosition().getX());
+            System.out.println("y: " + gameObjects.get(i).getPosition().getY());
+        }
+
+
+
 
         //Picture picture = new Picture(gameObjects.get(0).getPosition().getX() ,gameObjects.get(0).getPosition().getY(), "resources/poop.png");
         //picture.draw();

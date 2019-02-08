@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp22.unicorngame.RandomGenerator;
 import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
 
 import java.util.Comparator;
+import java.util.Random;
 
 public class GameObject {
 
@@ -18,12 +19,16 @@ public class GameObject {
         this.path = type.getPicturePath();
 
         value = type.getDamage();
-        this.position = new Position(60, 60);
+        this.position = new Position(RandomGenerator.getRandom(600), RandomGenerator.getRandom(600));
 
     }
 
     public Position getPosition() {
         return position;
+    }
+
+    public String getTypeString() {
+        return type.toString();
     }
 
     public String getPath() {
