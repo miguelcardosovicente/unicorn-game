@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp22.unicorngame.field;
 
+import java.util.Random;
+
 public class Position {
 
     private int x;
@@ -11,10 +13,16 @@ public class Position {
     }
 
     public int getX() {
-        return x;
+        return x+10;
     }
 
     public int getY() {
-        return y;
+        return y+10;
+    }
+
+    public static int genPos(int min, int max) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(max + 1 - min) + min;
+        return randomNumber;
     }
 }
