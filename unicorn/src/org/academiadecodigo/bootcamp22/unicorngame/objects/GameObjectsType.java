@@ -11,15 +11,11 @@ public enum GameObjectsType {
     ROCK(-5, "resources/rock.png"),
     VAMPIRE(-3, "resources/vampire.png");
 
-
-    private int damage;
+    private int score;
     private String picturePath;
 
-
-
-    GameObjectsType(int damage, String path) {
-
-        this.damage = damage;
+    GameObjectsType(int score, String path) {
+        this.score = score;
         this.picturePath = path;
     }
 
@@ -27,13 +23,8 @@ public enum GameObjectsType {
         return picturePath;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getScore() {
+        return score;
     }
 
-
-    public static GameObjectsType getType() {
-        GameObjectsType[] types = GameObjectsType.values();
-        return types[(int) (Math.random() * types.length)];
-    }
 }

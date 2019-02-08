@@ -1,21 +1,15 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
+import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-
-
-import java.awt.geom.PathIterator;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class Game {
 
     private Unicorn unicorn = new Unicorn();
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
-
 
     public void start(int elements) {
         init();
@@ -34,11 +28,11 @@ public class Game {
     private void initObjects(int elements) {
         for (int i = 0; i < elements; i++) {
 
-            GameObject generated = GameObjectFactory.getInstance();
+            GameObject generated = GameObjectFactory.getGameObject();
 
             //check if the same position has been given
             while (!verifyPosition(generated)) {
-               generated =  GameObjectFactory.getInstance();
+                generated = GameObjectFactory.getGameObject();
             }
 
             gameObjects.add(generated);
@@ -60,12 +54,29 @@ public class Game {
     private void drawObjects() {
 
         for (int i = 0; i < gameObjects.size(); i++) {
-            Picture picture = new Picture(gameObjects.get(i).getPosition().getX(), gameObjects.get(i).getPosition().getY(), gameObjects.get(i).getPath());
+            Picture picture = new Picture(gameObjects.get(i).getPosition().getX(),
+                    gameObjects.get(i).getPosition().getY(), gameObjects.get(i).getPicturePath());
             picture.draw();
 
-            System.out.println("object: " + gameObjects.get(i).getTypeString());
+            System.out.println("object: " + gameObjects.get(i).getPicturePath());
             System.out.println("x: " + gameObjects.get(i).getPosition().getX());
             System.out.println("y: " + gameObjects.get(i).getPosition().getY());
         }
     }
+
+    public boolean checkPosition() {
+
+        for (GameObject object: gameObjects) {
+
+            if(object.) {
+
+            }
+
+            if(object.getPosition().equals(unicorn.getUnicornPicture().getMaxX(), unicorn.getUnicornPicture().getMaxY())) {
+
+            }
+        }
+
+    }
+
 }
