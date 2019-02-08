@@ -1,7 +1,5 @@
 package org.academiadecodigo.bootcamp22.unicorngame.objects;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -19,17 +17,17 @@ public class Unicorn implements KeyboardHandler {
 
     private int happiness = 0;
 
-    private Picture background = new Picture(10, 50, "resources/background_sad.jpg");
-
     private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon_left.png");
 
-    private HappinessMeter meter = new HappinessMeter();
+    public int getHappiness() {
+        return happiness;
+    }
+
+    public Picture getUnicornPicture() {
+        return unicornPicture;
+    }
 
     public void move() {
-
-        background.draw();
-        unicornPicture.draw();
-        meter.draw();
 
         eventUp.setKey(KeyboardEvent.KEY_UP);
         eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -78,11 +76,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getY() >= 50) {
 
-            happiness += 10;
-
-            meter.fillMeter(happiness);
-
-            updateBackground();
+            happiness += 10; //DELETE THIS
 
             unicornPicture.translate(0, -60);
         }
@@ -93,16 +87,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getMaxY() <= 640) {
 
-            happiness -= 5;
-
-            Rectangle blank = new Rectangle(13, 14,  151, 24);
-            blank.setColor(Color.WHITE);
-            blank.draw();
-            blank.fill();
-
-            meter.fillMeter(happiness);
-
-            updateBackground();
+            happiness -= 5; //DELETE THIS
 
             unicornPicture.translate(0, 60);
         }
@@ -112,11 +97,7 @@ public class Unicorn implements KeyboardHandler {
     private void moveLeft() {
 
         if(unicornPicture.getX() >= 10) {
-
             unicornPicture.load("resources/unicornicon_left.png");
-
-            updateBackground();
-
             unicornPicture.translate(-60, 0);
         }
 
@@ -125,60 +106,8 @@ public class Unicorn implements KeyboardHandler {
     private void moveRight() {
 
         if(unicornPicture.getMaxX() <= 600) {
-
             unicornPicture.load("resources/unicornicon_right.png");
-
-            updateBackground();
-
             unicornPicture.translate(60, 0);
-        }
-
-    }
-
-    private void updateBackground() {
-
-        if(happiness < 40) {
-            background.load("resources/background_sad.jpg");
-            return;
-        }
-
-        if(happiness > 70) {
-            background.load("resources/background_happy.jpg");
-            return;
-        }
-
-        background.load("resources/background_medium.jpg");
-
-    }
-
-    private class HappinessMeter {
-
-        private Rectangle happinessMeterBorder;
-
-        private Rectangle happinessFilling;
-
-        public HappinessMeter() {
-            happinessMeterBorder = new Rectangle(12, 13, 152, 25);
-            happinessFilling = new Rectangle(13, 14,  0, 24);
-        }
-
-        public void draw() {
-
-            happinessMeterBorder.draw();
-
-            happinessFilling.setColor(Color.PINK);
-            happinessFilling.draw();
-            happinessFilling.fill();
-
-        }
-
-        public void fillMeter(int happiness) {
-            int maxHappiness = 100;
-            int percentageHappiness = happiness * 100 / maxHappiness;
-
-            happinessFilling = new Rectangle(13, 14, percentageHappiness * 1.51, 24);
-            draw();
-
         }
 
     }
