@@ -19,7 +19,7 @@ public class GameObject {
         this.path = type.getPicturePath();
 
         value = type.getDamage();
-        this.position = new Position(RandomGenerator.getRandom(600), RandomGenerator.getRandom(600));
+        this.position = new Position(Position.genPos(10, 500), Position.genPos(50, 500));
 
     }
 

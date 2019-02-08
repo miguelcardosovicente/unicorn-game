@@ -39,7 +39,7 @@ public class Game {
             //check if the same position has been given
             while (!verifyPosition(generated)) {
                generated =  GameObjectFactory.getInstance();
-            };
+            }
 
             gameObjects.add(generated);
 
@@ -67,13 +67,5 @@ public class Game {
             System.out.println("x: " + gameObjects.get(i).getPosition().getX());
             System.out.println("y: " + gameObjects.get(i).getPosition().getY());
         }
-
-
-
-
-        //Picture picture = new Picture(gameObjects.get(0).getPosition().getX() ,gameObjects.get(0).getPosition().getY(), "resources/poop.png");
-        //picture.draw();
-
     }
-
 }
