@@ -17,11 +17,15 @@ public class Unicorn implements KeyboardHandler {
     private KeyboardEvent eventLeft = new KeyboardEvent();
     private KeyboardEvent eventRight = new KeyboardEvent();
 
-    private int happiness = 0;
+    private int happiness = 30;
 
-    private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon.png");
+    private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon_left.png");
 
     private HappinessMeter meter = new HappinessMeter();
+
+    public int getHappiness() {
+        return happiness;
+    }
 
     public void move() {
 
@@ -76,6 +80,7 @@ public class Unicorn implements KeyboardHandler {
         if(unicornPicture.getY() >= 50) {
             happiness += 10;
             meter.fillMeter(happiness);
+
             unicornPicture.translate(0, -60);
         }
 
@@ -84,7 +89,14 @@ public class Unicorn implements KeyboardHandler {
     private void moveDown() {
 
         if(unicornPicture.getMaxY() <= 640) {
+
             happiness -= 10;
+
+            Rectangle blank = new Rectangle(13, 14,  151, 24);
+            blank.setColor(Color.WHITE);
+            blank.draw();
+            blank.fill();
+
             meter.fillMeter(happiness);
             unicornPicture.translate(0, 60);
         }
@@ -94,6 +106,14 @@ public class Unicorn implements KeyboardHandler {
     private void moveLeft() {
 
         if(unicornPicture.getX() >= 10) {
+
+            int currentX = unicornPicture.getX();
+            int currentY = unicornPicture.getY();
+
+            unicornPicture.delete();
+            unicornPicture = new Picture(currentX, currentY, "resources/unicornicon_left.png");
+            unicornPicture.draw();
+
             unicornPicture.translate(-60, 0);
         }
 
@@ -102,6 +122,14 @@ public class Unicorn implements KeyboardHandler {
     private void moveRight() {
 
         if(unicornPicture.getMaxX() <= 600) {
+
+            int currentX = unicornPicture.getX();
+            int currentY = unicornPicture.getY();
+
+            unicornPicture.delete();
+            unicornPicture = new Picture(currentX, currentY, "resources/unicornicon_right.png");
+            unicornPicture.draw();
+
             unicornPicture.translate(60, 0);
         }
 

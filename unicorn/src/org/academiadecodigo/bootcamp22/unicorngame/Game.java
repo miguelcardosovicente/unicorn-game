@@ -20,6 +20,12 @@ public class Game {
 
     }
 
+    public void changeBackground() {
 
+        if(unicorn.getHappiness() >= 50) {
+            background = new Picture(10, 50, "resources/background_happy.jpg");
+            background.draw();
+        }
+    }
 
 }
