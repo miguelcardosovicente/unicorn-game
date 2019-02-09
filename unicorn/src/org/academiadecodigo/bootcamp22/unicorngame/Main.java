@@ -9,6 +9,7 @@ public class Main {
         game.init();
         //game.start();
 
+        //game.start(10);
 
     }
 
