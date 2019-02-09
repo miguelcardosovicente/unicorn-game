@@ -18,6 +18,10 @@ public class TimeCounter {
         this.totalSeconds = totalSeconds;
     }
 
+    public int getSecondsLeft() {
+        return secondsLeft;
+    }
+
     public void start() {
 
         secondsLeft = totalSeconds;

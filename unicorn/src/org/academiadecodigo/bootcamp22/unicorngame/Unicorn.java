@@ -89,9 +89,6 @@ public class Unicorn implements KeyboardHandler {
     private void moveUp() {
 
         if(unicornPicture.getY() >= UPPER_GRID_LIMIT) {
-
-            //happiness += 10; //DELETE THIS
-
             unicornPicture.translate(0, -60);
         }
 
@@ -100,9 +97,6 @@ public class Unicorn implements KeyboardHandler {
     private void moveDown() {
 
         if(unicornPicture.getMaxY() <= LOWER_GRID_LIMIT) {
-
-            //happiness -= 5; //DELETE THIS
-
             unicornPicture.translate(0, 60);
         }
 

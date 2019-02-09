@@ -12,9 +12,9 @@ public class Game {
 
     private final int NUMBER_OF_GAME_OBJECTS = 10;
 
-    private Picture background = new Picture(10, 50, "resources/background_sad.jpg");
+    private Picture background = new Picture(10, 50, "resources/background_sad.png");
     private Unicorn unicorn = new Unicorn();
-    private TimeCounter timer = new TimeCounter(15);
+    private TimeCounter timer = new TimeCounter(59);
     private HappinessMeter meter = new HappinessMeter();
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private CollisionChecker collisionChecker;
@@ -24,7 +24,7 @@ public class Game {
 
     public Game() {
         fillObjectsArray();
-        collisionChecker = new CollisionChecker(gameObjects);
+        collisionChecker = new CollisionChecker();
     }
 
     /*private void initMenu() {
@@ -49,14 +49,22 @@ public class Game {
 
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
 
         init();
 
-        while (unicorn.getHappiness() < 100) {
+        while (unicorn.getHappiness() < 100 && timer.getSecondsLeft() > 0) {
             updateBackground();
             meter.updateMeter(unicorn.getHappiness());
-            collisionChecker.checkCollision(unicorn);
+
+            if (timer.getSecondsLeft() % 10 == 0) {
+                Thread.sleep(1000);
+                fillObjectsArray();
+                drawObjects();
+                //collisionChecker.checkCollision(unicorn, gameObjects);
+            }
+
+            collisionChecker.checkCollision(unicorn, gameObjects);
         }
 
     }
@@ -64,16 +72,16 @@ public class Game {
     private void updateBackground() {
 
         if (unicorn.getHappiness() < 40) {
-            background.load("resources/background_sad.jpg");
+            background.load("resources/background_sad.png");
             return;
         }
 
         if (unicorn.getHappiness() > 70) {
-            background.load("resources/background_happy.jpg");
+            background.load("resources/background_happy.png");
             return;
         }
 
-        background.load("resources/background_medium.jpg");
+        background.load("resources/background_medium.png");
     }
 
 

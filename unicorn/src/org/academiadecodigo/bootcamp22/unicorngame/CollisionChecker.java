@@ -6,13 +6,8 @@ import java.util.ArrayList;
 
 public class CollisionChecker {
 
-    private ArrayList<GameObject> gameObjects;
 
-    public CollisionChecker(ArrayList<GameObject> gameObjects) {
-        this.gameObjects = gameObjects;
-    }
-
-    public void checkCollision(Unicorn unicorn) {
+    public void checkCollision(Unicorn unicorn, ArrayList<GameObject> gameObjects) {
 
         int unicornX = Math.abs(unicorn.getUnicornPicture().getX());
         int unicornY = Math.abs(unicorn.getUnicornPicture().getY());
