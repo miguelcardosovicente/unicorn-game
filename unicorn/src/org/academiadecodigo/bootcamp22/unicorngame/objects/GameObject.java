@@ -5,9 +5,9 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class GameObject {
 
     private final int MIN_X = 10;
-    private final int MAX_X = 500;
+    private final int MAX_X = 550;
     private final int MIN_Y = 50;
-    private final int MAX_Y = 500;
+    private final int MAX_Y = 550;
 
     //private int value;
     //private String path;
