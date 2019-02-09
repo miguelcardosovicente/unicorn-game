@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp22.unicorngame.field;
 
-public class Position {
+/*public class Position {
 
     private final int PADDING = 10;
     private int x;
@@ -18,8 +18,4 @@ public class Position {
     public int getY() {
         return y + PADDING;
     }
-
-    public static int randomPosition(int min, int max) {
-        return (int) Math.floor(Math.random() * max) + min;
-    }
-}
+}*/

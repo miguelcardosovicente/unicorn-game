@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
-import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
+/*import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 
 public class CheckCollision {
@@ -19,4 +19,4 @@ public class CheckCollision {
     }
 
 
-}
+}*/

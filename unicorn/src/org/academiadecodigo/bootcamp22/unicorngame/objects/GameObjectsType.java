@@ -3,7 +3,7 @@ package org.academiadecodigo.bootcamp22.unicorngame.objects;
 public enum GameObjectsType {
 
     DONUT(1, "resources/donut.png"),
-    CRYSTAL(5, "resources/crystal.png"),
+    CRYSTAL(5, "resources/crystal.jpg"),
     RAINBOW(3, "resources/rainbow.png"),
     CHERRY_POOP(8, "resources/cherry_poop.png"),
     POOP(-8, "resources/poop.png"),
