@@ -4,12 +4,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Game game = new Game(1000);
+        Game game = new Game();
 
-        game.init();
-        //game.start();
-
-        //game.start(10);
+        game.start();
 
     }
 

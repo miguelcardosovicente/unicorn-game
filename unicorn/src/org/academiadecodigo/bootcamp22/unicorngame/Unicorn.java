@@ -42,6 +42,7 @@ public class Unicorn implements KeyboardHandler {
             happiness = 100;
         }
 
+
         eventUp.setKey(KeyboardEvent.KEY_UP);
         eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(eventUp);
@@ -89,7 +90,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getY() >= UPPER_GRID_LIMIT) {
 
-            happiness += 10; //DELETE THIS
+            //happiness += 10; //DELETE THIS
 
             unicornPicture.translate(0, -60);
         }
@@ -100,7 +101,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getMaxY() <= LOWER_GRID_LIMIT) {
 
-            happiness -= 5; //DELETE THIS
+            //happiness -= 5; //DELETE THIS
 
             unicornPicture.translate(0, 60);
         }
