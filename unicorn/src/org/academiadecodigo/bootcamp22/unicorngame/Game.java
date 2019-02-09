@@ -25,14 +25,14 @@ public class Game {
         background.draw();
         unicorn.getUnicornPicture().draw();
 
-        checkCollision.getTestCollision().draw();
-        checkCollision.getTestCollision().fill();
+        //checkCollision.getTestCollision().draw();
+        //checkCollision.getTestCollision().fill();
         unicorn.move();
 
-        while(true) {
+        /*while(true) {
 
             checkCollisions();
-        }
+        }*/
 
 
     }
@@ -59,9 +59,6 @@ public class Game {
 
             GameObject current = gameObjects.get(i);
 
-            Picture currentPicture = current.getGameObjectPicture();
-            Picture gameObjectPicture = gameObject.getGameObjectPicture();
-
             int safeX = Math.abs(gameObject.getGameObjectPicture().getX() - current.getGameObjectPicture().getX()); //> 35 is safe
             int safeY = Math.abs(gameObject.getGameObjectPicture().getY() - current.getGameObjectPicture().getY()); //> 35 is safe
 
@@ -85,30 +82,6 @@ public class Game {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
     private void checkCollisions() {
 
         checkCollision = new CheckCollision(gameObjects);
@@ -116,7 +89,5 @@ public class Game {
         checkCollision.collisionDetected(unicorn);
 
     }
-=======
->>>>>>> bfae3ce2583211510c5f5390b780bd7463fa9a49
 
 }
