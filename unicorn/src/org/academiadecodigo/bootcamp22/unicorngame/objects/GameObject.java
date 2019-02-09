@@ -11,6 +11,7 @@ public class GameObject {
 
     private GameObjectsType type;
     private Picture gameObjectPicture;
+    private boolean crashed;
 
     public GameObject(GameObjectsType type) {
         this.type = type;
@@ -32,4 +33,13 @@ public class GameObject {
     public int randomY() {
         return (int) Math.floor(Math.random() * MAX_Y) + MIN_Y;
     }
+
+    public boolean isCrashed() {
+        return crashed;
+    }
+
+    public void setCrashed() {
+        crashed = true;
+    }
+
 }

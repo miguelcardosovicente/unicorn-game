@@ -28,6 +28,24 @@ public class Unicorn implements KeyboardHandler {
         return happiness;
     }
 
+    public void setHappiness(int happiness) {
+        int total = this.happiness + happiness;
+
+        if(total > 100) {
+            this.happiness = 100;
+            return;
+        }
+
+        if(total < 0) {
+            this.happiness = 0;
+            return;
+        }
+
+        this.happiness = happiness;
+
+
+    }
+
     public Picture getUnicornPicture() {
         return unicornPicture;
     }

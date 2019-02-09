@@ -12,12 +12,13 @@ public class Game {
 
     private final int NUMBER_OF_GAME_OBJECTS = 10;
 
-    private Picture background = new Picture(10, 50, "resources/background_sad.png");
-    private Unicorn unicorn = new Unicorn();
-    private TimeCounter timer = new TimeCounter(59);
-    private HappinessMeter meter = new HappinessMeter();
-    private ArrayList<GameObject> gameObjects = new ArrayList<>();
+    private Picture background;
+    private Unicorn unicorn;
+    private TimeCounter timer;
+    private HappinessMeter meter;
     private CollisionChecker collisionChecker;
+
+    private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     private Menu menu = new Menu();
     //private int delay;
@@ -25,6 +26,12 @@ public class Game {
     public Game() {
         fillObjectsArray();
         collisionChecker = new CollisionChecker();
+
+        background = new Picture(10, 50, "resources/background_sad.png");
+        unicorn = new Unicorn();
+        timer = new TimeCounter(59);
+        meter = new HappinessMeter();
+
     }
 
     /*private void initMenu() {
@@ -53,6 +60,12 @@ public class Game {
 
         init();
 
+        /**
+         *
+         * GAME RUNNING
+         *
+         */
+
         while (unicorn.getHappiness() < 100 && timer.getSecondsLeft() > 0) {
             updateBackground();
             meter.updateMeter(unicorn.getHappiness());
@@ -63,8 +76,7 @@ public class Game {
                 drawObjects();
                 //collisionChecker.checkCollision(unicorn, gameObjects);
             }
-
-            collisionChecker.checkCollision(unicorn, gameObjects);
+            checkCollision();
         }
 
     }
@@ -126,4 +138,29 @@ public class Game {
 
     }
 
-}
+    private void checkCollision() {
+        int unicornX = Math.abs(unicorn.getUnicornPicture().getX());
+        int unicornY = Math.abs(unicorn.getUnicornPicture().getY());
+
+        for (GameObject object : gameObjects) {
+
+            int gameObjectX = object.getGameObjectPicture().getX();
+            int gameObjectY = object.getGameObjectPicture().getY();
+
+            int collideX = Math.abs(unicornX - gameObjectX);
+            int collideY = Math.abs(unicornY - gameObjectY);
+
+            if (collideX < 35 && collideY < 35 && !object.isCrashed()) { //35 is the size of each game object
+                object.getGameObjectPicture().delete();
+
+                // debug purposes
+                System.out.println("happiness: " + unicorn.getHappiness());
+                System.out.println("object value: "  + object.getScore());
+
+                unicorn.setHappiness(object.getScore());
+                object.setCrashed();
+
+                }
+            }
+        }
+    }
