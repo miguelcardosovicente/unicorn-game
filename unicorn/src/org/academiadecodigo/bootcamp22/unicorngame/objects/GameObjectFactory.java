@@ -4,33 +4,33 @@ public abstract class GameObjectFactory {
 
     public static GameObject getGameObject() {
 
-        double random = Math.random(); //13% chance of everything; 9% chance of black hole
+        double random = Math.random(); //12.5% chance of everything
 
-        if(random < 0.09) {
+        if(random < 0.125) {
             return new GameObject(GameObjectsType.BLACKHOLE);
         }
 
-        if(random < 0.22) {
+        if(random < 0.25) {
             return new GameObject(GameObjectsType.POOP);
         }
 
-        if(random < 0.35) {
+        if(random < 0.375) {
             return new GameObject(GameObjectsType.ROCK);
         }
 
-        if(random < 0.48) {
+        if(random < 0.50) {
             return new GameObject(GameObjectsType.VAMPIRE);
         }
 
-        if(random < 0.61) {
+        if(random < 0.625) {
             return new GameObject(GameObjectsType.CHERRY_POOP);
         }
 
-        if(random < 0.74) {
+        if(random < 0.75) {
             return new GameObject(GameObjectsType.CRYSTAL);
         }
 
-        if(random < 0.87) {
+        if(random < 0.875) {
             return new GameObject(GameObjectsType.DONUT);
         }
 

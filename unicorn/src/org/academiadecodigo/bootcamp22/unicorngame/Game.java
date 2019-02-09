@@ -5,7 +5,6 @@ import org.academiadecodigo.bootcamp22.unicorngame.objects.TimeCounter;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-
 import java.util.ArrayList;
 
 public class Game {

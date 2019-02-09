@@ -89,7 +89,7 @@ public class Unicorn implements KeyboardHandler {
     private void moveUp() {
 
         if(unicornPicture.getY() >= UPPER_GRID_LIMIT) {
-            unicornPicture.translate(0, -60);
+            unicornPicture.translate(0, -50);
         }
 
     }
@@ -97,7 +97,7 @@ public class Unicorn implements KeyboardHandler {
     private void moveDown() {
 
         if(unicornPicture.getMaxY() <= LOWER_GRID_LIMIT) {
-            unicornPicture.translate(0, 60);
+            unicornPicture.translate(0, 50);
         }
 
     }
@@ -106,7 +106,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getX() >= LEFT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_left.png");
-            unicornPicture.translate(-60, 0);
+            unicornPicture.translate(-50, 0);
         }
 
     }
@@ -115,7 +115,7 @@ public class Unicorn implements KeyboardHandler {
 
         if(unicornPicture.getMaxX() <= RIGHT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_right.png");
-            unicornPicture.translate(60, 0);
+            unicornPicture.translate(50, 0);
         }
 
     }
