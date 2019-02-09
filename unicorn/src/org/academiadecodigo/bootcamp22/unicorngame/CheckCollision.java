@@ -1,22 +1,46 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
-/*import org.academiadecodigo.bootcamp22.unicorngame.field.Position;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+
+import java.util.ArrayList;
 
 public class CheckCollision {
 
-    private GameObject[] gameobjects;
-    private Unicorn unicorn;
+    private ArrayList<GameObject> gameObjects;
 
-    public CheckCollision(GameObject[] gameobjects){
-        this.gameobjects = gameobjects;
+    private Rectangle testCollision = new Rectangle(130, 290, 35, 35);
+
+    public CheckCollision(ArrayList<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
+
     }
 
-    public boolean samePosition(Position position){
-        for (GameObject object: gameobjects) {
-            if(object.getPosition() == unicorn.getUnicornPicture().getMaxX(), unicorn.getUnicornPicture().getMaxY());
+    public Rectangle getTestCollision() {
+        return testCollision;
+    }
+
+    public boolean collisionDetected(Unicorn unicorn) {
+
+        int unicornX = unicorn.getUnicornPicture().getX();
+        int unicornY = unicorn.getUnicornPicture().getY();
+
+        if(unicornX >= testCollision.getX() && unicornY >= testCollision.getY()
+                && unicornX <= (testCollision.getX() + testCollision.getWidth()) && unicornY <= (testCollision.getY() + testCollision.getHeight())) {
+            testCollision.delete();
+            System.out.println("COLLISION");
+            return true;
         }
+
+        /*for (GameObject object: gameObjects) {
+
+            if(unicornX == object.getGameObjectPicture().getX() || unicornY == object.getGameObjectPicture().getY()) {
+                return true;
+            }
+
+        }*/
+        return false;
     }
 
 
-}*/
+}

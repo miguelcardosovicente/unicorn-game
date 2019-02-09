@@ -9,6 +9,7 @@ public class Game {
 
     private Unicorn unicorn = new Unicorn();
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
+    private CheckCollision checkCollision = new CheckCollision(gameObjects);
 
     public void start(int numberOfElements) {
         init();
@@ -21,7 +22,17 @@ public class Game {
         Picture background = new Picture(10, 50, "resources/background.jpg");
         background.draw();
         unicorn.getUnicornPicture().draw();
+
+        checkCollision.getTestCollision().draw();
+        checkCollision.getTestCollision().fill();
         unicorn.move();
+
+        while(true) {
+
+            checkCollisions();
+        }
+
+
     }
 
     private void initObjects(int numberOfElements) {
@@ -73,19 +84,12 @@ public class Game {
         }
     }
 
-    /*public boolean checkPosition() {
+    private void checkCollisions() {
 
-        for (GameObject object: gameObjects) {
+        checkCollision = new CheckCollision(gameObjects);
 
-            if(object.) {
+        checkCollision.collisionDetected(unicorn);
 
-            }
-
-            if(object.getPosition().equals(unicorn.getUnicornPicture().getMaxX(), unicorn.getUnicornPicture().getMaxY())) {
-
-            }
-        }
-
-    }*/
+    }
 
 }
