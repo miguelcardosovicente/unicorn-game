@@ -1,8 +1,10 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
+
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -31,7 +33,7 @@ public class Game {
             GameObject gameObject = GameObjectFactory.getGameObject();
 
             //check if the same position has been given
-            while (!verifyPosition(gameObject)) {
+            while (!safePicturePos(gameObject)) {
                 gameObject = GameObjectFactory.getGameObject();
             }
 
@@ -40,7 +42,7 @@ public class Game {
         }
     }
 
-    private boolean verifyPosition(GameObject gameObject) {
+    private boolean safePicturePos(GameObject gameObject) {
 
         for (int i = 0; i < gameObjects.size(); i++) {
 
@@ -49,9 +51,10 @@ public class Game {
             Picture currentPicture = current.getGameObjectPicture();
             Picture gameObjectPicture = gameObject.getGameObjectPicture();
 
-            if (currentPicture.getX() == gameObjectPicture.getX() || currentPicture.getY() == gameObjectPicture.getY()
-                    || currentPicture.getX() > gameObjectPicture.getX() - 60 || currentPicture.getY() > gameObjectPicture.getY() - 60
-                    || currentPicture.getX() < gameObjectPicture.getX() + 60 || currentPicture.getY() < gameObjectPicture.getY() + 60) {
+            int safeX = Math.abs(gameObject.getGameObjectPicture().getX() - current.getGameObjectPicture().getX()); //> 35 is safe
+            int safeY = Math.abs(gameObject.getGameObjectPicture().getY() - current.getGameObjectPicture().getY()); //> 35 is safe
+
+            if(safeX <= current.getGameObjectPicture().getHeight() && safeY <= current.getGameObjectPicture().getHeight()) {
                 return false;
             }
         }
@@ -62,8 +65,6 @@ public class Game {
     private void drawObjects() {
 
         for (int i = 0; i < gameObjects.size(); i++) {
-            //Picture picture = new Picture(gameObjects.get(i).getPosition().getX(), gameObjects.get(i).getPosition().getY(), gameObjects.get(i).getPicturePath());
-            //picture.draw();
 
             gameObjects.get(i).getGameObjectPicture().draw();
 
@@ -73,19 +74,5 @@ public class Game {
         }
     }
 
-    /*public boolean checkPosition() {
-
-        for (GameObject object: gameObjects) {
-
-            if(object.) {
-
-            }
-
-            if(object.getPosition().equals(unicorn.getUnicornPicture().getMaxX(), unicorn.getUnicornPicture().getMaxY())) {
-
-            }
-        }
-
-    }*/
 
 }
