@@ -7,6 +7,11 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Unicorn implements KeyboardHandler {
+    //DEAL WITH BORDERS!!!!!
+    private final int UPPER_GRID_LIMIT = 50; //Y = 50
+    private final int LOWER_GRID_LIMIT = 650; //maxY = 650
+    private final int LEFT_GRID_LIMIT = 10; //X = 10
+    private final int RIGHT_GRID_LIMIT = 610; //maxX = 610
 
     private Keyboard keyboard = new Keyboard(this);
 
@@ -17,7 +22,7 @@ public class Unicorn implements KeyboardHandler {
 
     private int happiness = 0;
 
-    private Picture unicornPicture = new Picture(250, 250, "resources/unicornicon_left.png");
+    private Picture unicornPicture = new Picture(350, 310, "resources/unicornicon_left.png");
 
     public int getHappiness() {
         return happiness;
@@ -28,6 +33,14 @@ public class Unicorn implements KeyboardHandler {
     }
 
     public void move() {
+
+        if(happiness < 0) {
+            happiness = 0;
+        }
+
+        if(happiness > 100) {
+            happiness = 100;
+        }
 
         eventUp.setKey(KeyboardEvent.KEY_UP);
         eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -74,7 +87,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveUp() {
 
-        if(unicornPicture.getY() >= 50) {
+        if(unicornPicture.getY() >= UPPER_GRID_LIMIT) {
 
             happiness += 10; //DELETE THIS
 
@@ -85,7 +98,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveDown() {
 
-        if(unicornPicture.getMaxY() <= 640) {
+        if(unicornPicture.getMaxY() <= LOWER_GRID_LIMIT) {
 
             happiness -= 5; //DELETE THIS
 
@@ -96,7 +109,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveLeft() {
 
-        if(unicornPicture.getX() >= 10) {
+        if(unicornPicture.getX() >= LEFT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_left.png");
             unicornPicture.translate(-60, 0);
         }
@@ -105,7 +118,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveRight() {
 
-        if(unicornPicture.getMaxX() <= 600) {
+        if(unicornPicture.getMaxX() <= RIGHT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_right.png");
             unicornPicture.translate(60, 0);
         }

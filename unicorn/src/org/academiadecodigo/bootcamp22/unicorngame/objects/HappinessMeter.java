@@ -25,6 +25,15 @@ public class HappinessMeter {
         happinessFilling.delete();
 
         int maxHappiness = 100;
+
+        if(happiness < 0) {
+            happiness = 0;
+        }
+
+        if(happiness > maxHappiness) {
+            happiness = maxHappiness;
+        }
+
         int percentageHappiness = happiness * 100 / maxHappiness;
 
         happinessFilling = new Rectangle(13, 14, percentageHappiness * 1.51, 24);
