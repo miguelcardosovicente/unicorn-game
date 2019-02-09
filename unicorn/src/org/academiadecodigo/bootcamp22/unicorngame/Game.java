@@ -16,7 +16,6 @@ public class Game {
     private Unicorn unicorn;
     private TimeCounter timer;
     private HappinessMeter meter;
-    private CollisionChecker collisionChecker;
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
 
@@ -24,13 +23,13 @@ public class Game {
     //private int delay;
 
     public Game() {
-        fillObjectsArray();
-        collisionChecker = new CollisionChecker();
 
         background = new Picture(10, 50, "resources/background_sad.png");
         unicorn = new Unicorn();
         timer = new TimeCounter(59);
         meter = new HappinessMeter();
+
+        fillObjectsArray();
 
     }
 
@@ -132,8 +131,13 @@ public class Game {
 
     private void drawObjects() {
 
-        for (GameObject obj : gameObjects) {
-            obj.getGameObjectPicture().draw();
+        for (GameObject object : gameObjects) {
+
+            if(object.isCrashed()) {
+                continue;
+            }
+
+            object.getGameObjectPicture().draw();
         }
 
     }
@@ -144,13 +148,17 @@ public class Game {
 
         for (GameObject object : gameObjects) {
 
+            if(object.isCrashed()) {
+                continue;
+            }
+
             int gameObjectX = object.getGameObjectPicture().getX();
             int gameObjectY = object.getGameObjectPicture().getY();
 
             int collideX = Math.abs(unicornX - gameObjectX);
             int collideY = Math.abs(unicornY - gameObjectY);
 
-            if (collideX < 35 && collideY < 35 && !object.isCrashed()) { //35 is the size of each game object
+            if (collideX < 35 && collideY < 35) { //35 is the size of each game object
                 object.getGameObjectPicture().delete();
 
                 // debug purposes

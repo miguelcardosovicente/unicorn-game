@@ -41,7 +41,7 @@ public class Unicorn implements KeyboardHandler {
             return;
         }
 
-        this.happiness = happiness;
+        this.happiness = total;
 
 
     }
