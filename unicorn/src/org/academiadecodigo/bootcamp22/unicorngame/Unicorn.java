@@ -22,7 +22,7 @@ public class Unicorn implements KeyboardHandler {
 
     private int happiness = 0;
 
-    private Picture unicornPicture = new Picture(350, 310, "resources/unicornicon_left.png");
+    private Picture unicornPicture = new Picture(10, 50, "resources/unicornicon_left.png");
 
     public int getHappiness() {
         return happiness;
@@ -88,34 +88,34 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveUp() {
 
-        if(unicornPicture.getY() >= UPPER_GRID_LIMIT) {
-            unicornPicture.translate(0, -50);
+        if(unicornPicture.getY() > UPPER_GRID_LIMIT) {
+            unicornPicture.translate(0, -60);
         }
 
     }
 
     private void moveDown() {
 
-        if(unicornPicture.getMaxY() <= LOWER_GRID_LIMIT) {
-            unicornPicture.translate(0, 50);
+        if(unicornPicture.getMaxY() < LOWER_GRID_LIMIT) {
+            unicornPicture.translate(0, 60);
         }
 
     }
 
     private void moveLeft() {
 
-        if(unicornPicture.getX() >= LEFT_GRID_LIMIT) {
+        if(unicornPicture.getX() > LEFT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_left.png");
-            unicornPicture.translate(-50, 0);
+            unicornPicture.translate(-76, 0);
         }
 
     }
 
     private void moveRight() {
 
-        if(unicornPicture.getMaxX() <= RIGHT_GRID_LIMIT) {
+        if(unicornPicture.getMaxX() < RIGHT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_right.png");
-            unicornPicture.translate(50, 0);
+            unicornPicture.translate(76, 0);
         }
 
     }
