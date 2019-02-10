@@ -6,7 +6,7 @@ public class Main {
 
         Game game = new Game();
 
-        try{
+        try {
             game.start();
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
