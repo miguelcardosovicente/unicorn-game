@@ -66,27 +66,21 @@ public class Game {
             }
 
             if (unicorn.getHappiness() == 100) {
-                state = State.WON;
+                Picture game_won = new Picture(10, 50, "resources/game_won.jpg");
+                game_won.draw();
+                timer.endTimer();
+                state = State.END;
                 break;
             }
 
             if (timer.getSecondsLeft() == 0) {
-                state = State.LOST;
+                Picture game_lost = new Picture(10, 50, "resources/game_lost.png");
+                game_lost.draw();
+                state = State.END;
                 break;
             }
 
             checkCollision();
-        }
-
-        if (state == State.LOST) {
-            Picture game_lost = new Picture(10, 50, "resources/game_lost.png");
-            game_lost.draw();
-        }
-
-        if (state == State.WON) {
-            Picture game_won = new Picture(10, 50, "resources/game_won.jpg");
-            game_won.draw();
-            timer.endTimer();
         }
     }
 
@@ -194,8 +188,7 @@ public class Game {
     public enum State {
         MENU,
         GAME,
-        WON,
-        LOST
+        END
     }
 
 }
