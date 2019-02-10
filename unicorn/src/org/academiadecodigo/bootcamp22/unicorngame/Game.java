@@ -11,30 +11,25 @@ public class Game {
 
     private final int NUMBER_OF_GAME_OBJECTS = 10;
 
-    private Picture background = new Picture(10, 50, "resources/background_sad.png");
-    private Unicorn unicorn = new Unicorn();
-    private TimeCounter timer = new TimeCounter(59);
-    private HappinessMeter meter = new HappinessMeter();
-    private ArrayList<GameObject> gameObjects = new ArrayList<>();
-    private CollisionChecker collisionChecker;
+    private Picture background;
+    private Unicorn unicorn;
+    private TimeCounter timer;
+    private HappinessMeter meter;
 
+    private ArrayList<GameObject> gameObjects = new ArrayList<>();
+
+    private State state;
     private Menu menu = new Menu();
-    //private int delay;
 
     public Game() {
+
+        background = new Picture(10, 50, "resources/background_sad.png");
+        unicorn = new Unicorn();
+        timer = new TimeCounter(59);
+        meter = new HappinessMeter();
+
         fillObjectsArray();
-        collisionChecker = new CollisionChecker();
     }
-
-    /*private void initMenu() {
-
-        menu.showMenu();
-
-        if (menu.startGame()) {
-            start();
-        }
-
-    }*/
 
     private void init() {
 
@@ -50,22 +45,26 @@ public class Game {
 
     public void start() throws InterruptedException {
 
-        init();
+        state = State.MENU;
+        state = menu.showMenu();
 
-        while (unicorn.getHappiness() < 100 && timer.getSecondsLeft() > 0) {
-            updateBackground();
-            meter.updateMeter(unicorn.getHappiness());
+        if (state == State.GAME) {
+            init();
 
-            if (timer.getSecondsLeft() % 10 == 0) {
-                Thread.sleep(1000);
-                fillObjectsArray();
-                drawObjects();
-                //collisionChecker.checkCollision(unicorn, gameObjects);
+            while (unicorn.getHappiness() < 100 && timer.getSecondsLeft() > 0) {
+
+                updateBackground();
+                meter.updateMeter(unicorn.getHappiness());
+
+                if (timer.getSecondsLeft() % 10 == 0) {
+                    Thread.sleep(1000);
+                    fillObjectsArray();
+                    drawObjects();
+                }
+
+                checkCollision();
             }
-
-            collisionChecker.checkCollision(unicorn, gameObjects);
         }
-
     }
 
     private void updateBackground() {
@@ -119,10 +118,58 @@ public class Game {
 
     private void drawObjects() {
 
-        for (GameObject obj : gameObjects) {
-            obj.getGameObjectPicture().draw();
+        for (GameObject object : gameObjects) {
+
+            if(object.isCrashed()) {
+                continue;
+            }
+
+            object.getGameObjectPicture().draw();
         }
 
+    }
+
+    private void checkCollision() {
+
+        int unicornX = Math.abs(unicorn.getUnicornPicture().getX());
+        int unicornY = Math.abs(unicorn.getUnicornPicture().getY());
+
+        //int unicornMaxX = Math.abs(unicorn.getUnicornPicture().getMaxX());
+        //int unicornMaxY = Math.abs(unicorn.getUnicornPicture().getMaxY());
+
+        for (GameObject object : gameObjects) {
+
+            if(object.isCrashed()) {
+                continue;
+            }
+
+            int gameObjectX = object.getGameObjectPicture().getX();
+            int gameObjectY = object.getGameObjectPicture().getY();
+
+            //int gameObjectMaxX = object.getGameObjectPicture().getMaxX();
+            //int gameObjectMaxY = object.getGameObjectPicture().getMaxY();
+
+            int collideX = Math.abs(unicornX - gameObjectX);
+            int collideY = Math.abs(unicornY - gameObjectY);
+
+            //int collideMaxX = Math.abs(unicornMaxX - gameObjectMaxX);
+            //int collideMaxY = Math.abs(unicornMaxY - gameObjectMaxY);
+
+            if (collideX < object.getGameObjectPicture().getWidth() && collideY < object.getGameObjectPicture().getHeight() /*|| collideMaxX < 35 && collideMaxY < 35*/) {
+                object.getGameObjectPicture().delete();
+
+                unicorn.setHappiness(object.getScore());
+                object.setCrashed();
+
+            }
+
+        }
+
+    }
+
+    public enum State {
+        MENU,
+        GAME
     }
 
 }
