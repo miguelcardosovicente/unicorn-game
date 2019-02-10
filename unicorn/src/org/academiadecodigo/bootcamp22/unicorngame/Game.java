@@ -6,11 +6,9 @@ import org.academiadecodigo.bootcamp22.unicorngame.elements.Unicorn;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-
 import java.util.ArrayList;
 
 public class Game {
-
 
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
 
