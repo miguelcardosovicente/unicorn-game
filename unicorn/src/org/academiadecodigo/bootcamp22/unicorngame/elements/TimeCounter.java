@@ -1,7 +1,7 @@
 package org.academiadecodigo.bootcamp22.unicorngame.elements;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.graphics.Text;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,6 +12,7 @@ public class TimeCounter {
     private int totalSeconds;
     private int secondsLeft;
     private Text timerText;
+    private Picture timerIcon;
 
     public TimeCounter(int totalSeconds) {
         timer = new Timer();
@@ -22,12 +23,19 @@ public class TimeCounter {
         return secondsLeft;
     }
 
+    public void endTimer() {
+        timer.cancel();
+    }
+
     public void start() {
 
         secondsLeft = totalSeconds;
-        timerText = new Text(525, 20, "00 : " + secondsLeft);
-        timerText.grow(50, 30);
+        timerText = new Text(525, 25, "00 : " + secondsLeft);
+        timerText.grow(35, 15);
         timerText.draw();
+
+        timerIcon = new Picture(450, 10,"resources/game_clock.png");
+        timerIcon.draw();
 
         timer.schedule(new TimerTask() {
             @Override
@@ -43,11 +51,6 @@ public class TimeCounter {
                 }
 
                 if(secondsLeft == 0) {
-                    //what shows when time ends
-                    Rectangle rectangle = new Rectangle(10, 50, 600, 600);
-                    rectangle.draw();
-                    rectangle.fill();
-
                     timer.cancel();
                 }
             }

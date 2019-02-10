@@ -13,7 +13,6 @@ public class Game {
 
 
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
-    private int numberOfNewGameObjects = (int) Math.floor(Math.random() * 4 + 1);
 
     private Picture background;
     private Unicorn unicorn;
@@ -41,7 +40,6 @@ public class Game {
         meter.draw();
         drawObjects();
         timer.start();
-
     }
 
     public void start() throws InterruptedException {
@@ -54,14 +52,6 @@ public class Game {
             init();
             loop();
         }
-
-        /*if (state = State.LOST;) {
-
-        }
-
-        if (state == State.WON) {
-
-        }*/
     }
 
     private void loop() throws InterruptedException {
@@ -73,23 +63,33 @@ public class Game {
 
             if (timer.getSecondsLeft() % 5 == 0) {
                 Thread.sleep(1000);
-                fillObjectsArray(numberOfNewGameObjects);
+                fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
                 drawObjects();
             }
 
             if (unicorn.getHappiness() == 100) {
                 state = State.WON;
-                return;
+                break;
             }
 
             if (timer.getSecondsLeft() == 0) {
                 state = State.LOST;
-                return;
+                break;
             }
 
             checkCollision();
         }
 
+        if (state == State.LOST) {
+            Picture game_lost = new Picture(10, 50, "resources/game_lost.png");
+            game_lost.draw();
+        }
+
+        if (state == State.WON) {
+            Picture game_won = new Picture(10, 50, "resources/game_won.jpg");
+            game_won.draw();
+            timer.endTimer();
+        }
     }
 
     private void updateBackground() {
@@ -151,7 +151,6 @@ public class Game {
 
             object.getGameObjectPicture().draw();
         }
-
     }
 
     private void checkCollision() {
@@ -192,7 +191,6 @@ public class Game {
             }
 
         }
-
     }
 
     public enum State {
