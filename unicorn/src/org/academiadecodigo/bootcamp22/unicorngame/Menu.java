@@ -1,7 +1,5 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -13,10 +11,10 @@ public class Menu implements KeyboardHandler {
     private Keyboard keyboard = new Keyboard(this);
     private Game.State state;
 
-    //private Picture menuPicture = new Picture(10, 10, path);
-    private Rectangle menuPicture = new Rectangle(10, 10, 610, 650);
+    private Picture menuPicture = new Picture(10, 10, "resources/game_menu.png");
 
     public Menu() {
+
         KeyboardEvent eventStart = new KeyboardEvent();
         eventStart.setKey(KeyboardEvent.KEY_SPACE);
         eventStart.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -27,9 +25,7 @@ public class Menu implements KeyboardHandler {
 
     public Game.State showMenu() throws InterruptedException {
 
-        menuPicture.setColor(Color.CYAN);
         menuPicture.draw();
-        menuPicture.fill();
 
         while (state == Game.State.MENU) {
             Thread.sleep(50);

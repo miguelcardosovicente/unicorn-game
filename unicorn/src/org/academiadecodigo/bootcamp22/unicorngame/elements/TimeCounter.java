@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp22.unicorngame.objects;
+package org.academiadecodigo.bootcamp22.unicorngame.elements;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.graphics.Text;

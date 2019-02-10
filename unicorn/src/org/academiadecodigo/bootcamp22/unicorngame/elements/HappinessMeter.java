@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp22.unicorngame.objects;
+package org.academiadecodigo.bootcamp22.unicorngame.elements;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -17,7 +17,6 @@ public class HappinessMeter {
         happinessFilling.setColor(Color.PINK);
         happinessFilling.draw();
         happinessFilling.fill();
-
     }
 
     public void updateMeter(int happiness) {
@@ -25,14 +24,6 @@ public class HappinessMeter {
         happinessFilling.delete();
 
         int maxHappiness = 100;
-
-        if(happiness < 0) {
-            happiness = 0;
-        }
-
-        if(happiness > maxHappiness) {
-            happiness = maxHappiness;
-        }
 
         int percentageHappiness = happiness * 100 / maxHappiness;
 
