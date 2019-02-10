@@ -70,14 +70,14 @@ public class Game {
                 game_won.draw();
                 timer.endTimer();
                 state = State.END;
-                break;
+                return;
             }
 
             if (timer.getSecondsLeft() == 0) {
                 Picture game_lost = new Picture(10, 50, "resources/game_lost.png");
                 game_lost.draw();
                 state = State.END;
-                break;
+                return;
             }
 
             checkCollision();
