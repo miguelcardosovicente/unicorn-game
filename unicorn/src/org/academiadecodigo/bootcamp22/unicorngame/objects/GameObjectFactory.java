@@ -6,31 +6,31 @@ public abstract class GameObjectFactory {
 
         double random = Math.random(); //12.5% chance of everything
 
-        if(random < 0.125) {
+        if(random < 0.09) {
             return new GameObject(GameObjectsType.BLACKHOLE);
         }
 
-        if(random < 0.25) {
+        if(random < 0.22) {
             return new GameObject(GameObjectsType.POOP);
         }
 
-        if(random < 0.375) {
+        if(random < 0.35) {
             return new GameObject(GameObjectsType.ROCK);
         }
 
-        if(random < 0.50) {
+        if(random < 0.48) {
             return new GameObject(GameObjectsType.VAMPIRE);
         }
 
-        if(random < 0.625) {
+        if(random < 0.61) {
             return new GameObject(GameObjectsType.CHERRY_POOP);
         }
 
-        if(random < 0.75) {
+        if(random < 0.74) {
             return new GameObject(GameObjectsType.CRYSTAL);
         }
 
-        if(random < 0.875) {
+        if(random < 0.87) {
             return new GameObject(GameObjectsType.DONUT);
         }
 
