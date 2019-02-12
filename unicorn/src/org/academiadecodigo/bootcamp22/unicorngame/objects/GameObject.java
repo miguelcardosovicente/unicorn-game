@@ -11,7 +11,7 @@ public class GameObject {
 
     private GameObjectsType type;
     private Picture gameObjectPicture;
-    private boolean crashed;
+    private boolean crashed = false;
 
     public GameObject(GameObjectsType type) {
         this.type = type;

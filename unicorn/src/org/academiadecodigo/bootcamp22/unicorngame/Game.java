@@ -6,23 +6,30 @@ import org.academiadecodigo.bootcamp22.unicorngame.elements.Unicorn;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 import java.util.ArrayList;
 
 public class Game {
 
+    private final int DELAY = 40;
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
 
     private Picture background;
+    private Picture game_won;
+    private Picture game_lost;
     private Unicorn unicorn;
     private TimeCounter timer;
     private HappinessMeter meter;
     private State state;
     private Menu menu;
     private ArrayList<GameObject> gameObjects;
+    private int currentSecond;
 
     public Game() {
 
         background = new Picture(10, 50, "resources/background_sad.png");
+        game_won = new Picture(10, 50, "resources/game_won.jpg");
+        game_lost = new Picture(10, 50, "resources/game_lost.png");
         unicorn = new Unicorn();
         timer = new TimeCounter(59);
         meter = new HappinessMeter();
@@ -37,6 +44,7 @@ public class Game {
         unicorn.getUnicornPicture().draw();
         meter.draw();
         drawObjects();
+        timer = new TimeCounter(59);
         timer.start();
     }
 
@@ -56,32 +64,56 @@ public class Game {
 
         while (state == State.GAME) {
 
+            Thread.sleep(DELAY);
+            unicorn.move();
             updateBackground();
             meter.updateMeter(unicorn.getHappiness());
 
-            if (timer.getSecondsLeft() % 5 == 0) {
-                Thread.sleep(1000);
+            if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
+                this.currentSecond = timer.getSecondsLeft();
                 fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
                 drawObjects();
             }
 
             if (unicorn.getHappiness() == 100) {
-                Picture game_won = new Picture(10, 50, "resources/game_won.jpg");
                 game_won.draw();
                 timer.endTimer();
-                state = State.END;
-                return;
+                state = State.WON;
+                break;
             }
 
             if (timer.getSecondsLeft() == 0) {
-                Picture game_lost = new Picture(10, 50, "resources/game_lost.png");
                 game_lost.draw();
-                state = State.END;
-                return;
+                //timer.endTimer();
+                state = State.LOST;
+                break;
             }
 
             checkCollision();
         }
+
+        restart();
+
+    }
+
+    private void restart() throws InterruptedException {
+
+        timer.getTimerText().delete();
+        background.delete();
+        unicorn.getUnicornPicture().delete();
+        timer = new TimeCounter(59);
+
+        Thread.sleep(DELAY);
+
+        if (state == State.WON) {
+            game_won.delete();
+        }
+        if (state == State.LOST) {
+            game_lost.delete();
+        }
+
+        start();
+
     }
 
     private void updateBackground() {
@@ -174,7 +206,7 @@ public class Game {
             if (collideX < object.getGameObjectPicture().getWidth() &&
                     collideY < object.getGameObjectPicture().getHeight() ||
                     collideMaxX < object.getGameObjectPicture().getWidth() &&
-                    collideMaxY < object.getGameObjectPicture().getHeight()) {
+                            collideMaxY < object.getGameObjectPicture().getHeight()) {
 
                 object.getGameObjectPicture().delete();
                 unicorn.setHappiness(object.getScore());
@@ -188,7 +220,8 @@ public class Game {
     public enum State {
         MENU,
         GAME,
-        END
+        LOST,
+        WON
     }
 
 }

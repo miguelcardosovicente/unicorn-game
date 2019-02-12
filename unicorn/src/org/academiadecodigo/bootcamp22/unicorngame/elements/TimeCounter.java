@@ -27,6 +27,10 @@ public class TimeCounter {
         timer.cancel();
     }
 
+    public Text getTimerText() {
+        return timerText;
+    }
+
     public void start() {
 
         secondsLeft = totalSeconds;

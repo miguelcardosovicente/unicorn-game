@@ -10,6 +10,7 @@ public class Unicorn implements KeyboardHandler {
 
     private Keyboard keyboard = new Keyboard(this);
     private Picture unicornPicture;
+    private Direction direction = Direction.STOP;
 
     private final int UPPER_GRID_LIMIT = 50;
     private final int LOWER_GRID_LIMIT = 650;
@@ -50,12 +51,12 @@ public class Unicorn implements KeyboardHandler {
 
         int total = this.happiness + score;
 
-        if(total > 100) {
+        if (total > 100) {
             this.happiness = 100;
             return;
         }
 
-        if(total < 0) {
+        if (total < 0) {
             this.happiness = 0;
             return;
         }
@@ -67,21 +68,47 @@ public class Unicorn implements KeyboardHandler {
         return unicornPicture;
     }
 
+    public void move() {
+
+        switch (direction) {
+            case UP:
+                moveUp();
+                direction = Direction.STOP;
+                break;
+            case DOWN:
+                moveDown();
+                direction = Direction.STOP;
+                break;
+            case LEFT:
+                moveLeft();
+                direction = Direction.STOP;
+                break;
+            case RIGHT:
+                moveRight();
+                direction = Direction.STOP;
+                break;
+            case STOP:
+                stop();
+                break;
+        }
+
+    }
+
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_UP:
-                moveUp();
+                direction = Direction.UP;
                 break;
             case KeyboardEvent.KEY_DOWN:
-                moveDown();
+                direction = Direction.DOWN;
                 break;
             case KeyboardEvent.KEY_LEFT:
-                moveLeft();
+                direction = Direction.LEFT;
                 break;
             case KeyboardEvent.KEY_RIGHT:
-                moveRight();
+                direction = Direction.RIGHT;
                 break;
         }
 
@@ -89,12 +116,16 @@ public class Unicorn implements KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-        return;
+        direction = Direction.STOP;
+    }
+
+    private void stop() {
+        unicornPicture.translate(0, 0);
     }
 
     private void moveUp() {
 
-        if(unicornPicture.getY() > UPPER_GRID_LIMIT) {
+        if (unicornPicture.getY() > UPPER_GRID_LIMIT) {
             unicornPicture.translate(0, -unicornPicture.getHeight());
         }
 
@@ -102,7 +133,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveDown() {
 
-        if(unicornPicture.getMaxY() < LOWER_GRID_LIMIT) {
+        if (unicornPicture.getMaxY() < LOWER_GRID_LIMIT) {
             unicornPicture.translate(0, unicornPicture.getHeight());
         }
 
@@ -110,7 +141,7 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveLeft() {
 
-        if(unicornPicture.getX() > LEFT_GRID_LIMIT) {
+        if (unicornPicture.getX() > LEFT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_left.png");
             unicornPicture.translate(-unicornPicture.getWidth(), 0);
         }
@@ -119,11 +150,20 @@ public class Unicorn implements KeyboardHandler {
 
     private void moveRight() {
 
-        if(unicornPicture.getMaxX() < RIGHT_GRID_LIMIT) {
+        if (unicornPicture.getMaxX() < RIGHT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_right.png");
             unicornPicture.translate(unicornPicture.getWidth(), 0);
         }
 
+    }
+
+    public enum Direction {
+
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        STOP
     }
 
 }
