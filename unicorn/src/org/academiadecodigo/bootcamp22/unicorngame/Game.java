@@ -38,16 +38,6 @@ public class Game {
         fillObjectsArray(INITIAL_NUMBER_OF_GAME_OBJECTS);
     }
 
-    private void init() {
-
-        background.draw();
-        unicorn.getUnicornPicture().draw();
-        meter.draw();
-        drawObjects();
-        timer = new TimeCounter(59);
-        timer.start();
-    }
-
     public void start() throws InterruptedException {
 
         state = State.MENU;
@@ -60,6 +50,16 @@ public class Game {
         }
     }
 
+    private void init() {
+
+        background.draw();
+        unicorn.getUnicornPicture().draw();
+        meter.draw();
+        drawObjects();
+        timer = new TimeCounter(59);
+        timer.start();
+    }
+
     private void loop() throws InterruptedException {
 
         while (state == State.GAME) {
@@ -70,7 +70,7 @@ public class Game {
             meter.updateMeter(unicorn.getHappiness());
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
-                this.currentSecond = timer.getSecondsLeft();
+                currentSecond = timer.getSecondsLeft();
                 fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
                 drawObjects();
             }
@@ -84,7 +84,6 @@ public class Game {
 
             if (timer.getSecondsLeft() == 0) {
                 game_lost.draw();
-                //timer.endTimer();
                 state = State.LOST;
                 break;
             }
@@ -98,12 +97,15 @@ public class Game {
 
     private void restart() throws InterruptedException {
 
+        Thread.sleep(3000);
+
         timer.getTimerText().delete();
         background.delete();
         unicorn.getUnicornPicture().delete();
         timer = new TimeCounter(59);
-
-        Thread.sleep(DELAY);
+        unicorn = new Unicorn();
+        gameObjects.clear();
+        fillObjectsArray(INITIAL_NUMBER_OF_GAME_OBJECTS);
 
         if (state == State.WON) {
             game_won.delete();
@@ -112,8 +114,10 @@ public class Game {
             game_lost.delete();
         }
 
-        start();
+        state = State.MENU;
+        menu = new Menu();
 
+        start();
     }
 
     private void updateBackground() {

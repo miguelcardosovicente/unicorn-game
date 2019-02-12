@@ -46,7 +46,7 @@ public class Menu implements KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-        return;
+        //does not need implementation
     }
 
 }
