@@ -26,10 +26,14 @@ public class Sound {
         clip.start();
     }
 
+    public int getLength() {
+        return clip.getFrameLength();
+    }
+
     public void alwaysLoop() {
 
         //sets loop points at start and end of track
-        clip.setLoopPoints(0, clip.getFrameLength());
+        clip.setLoopPoints(0, (int) (getLength() * 0.94));
 
         //activates loop
         clip.loop(Clip.LOOP_CONTINUOUSLY);
