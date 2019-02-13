@@ -9,6 +9,7 @@ import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
 
@@ -62,11 +63,17 @@ public class Game {
         sound.alwaysLoop();
 
         /* INIT IMAGES */
+        background.draw();
+        unicorn.getUnicornPicture().draw();
+        meter.draw();
+
         drawImages();
 
         /* INIT TIMER */
         timer = new TimeCounter(59);
         timer.start();
+
+
     }
 
     private void loop() throws InterruptedException {
@@ -80,9 +87,13 @@ public class Game {
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
-                fillObjectsArray((int) Math.floor(Math.random() * 10 + 6));
 
-                removeObjects(6);
+                Random random = new Random();
+                int randomNumber = random.nextInt(10 - 6) + 6;
+
+                fillObjectsArray(randomNumber);
+                removeObjects(3);
+
                 drawImages();
             }
 
@@ -204,10 +215,6 @@ public class Game {
     }
 
     private void drawImages() {
-        background.draw();
-        unicorn.getUnicornPicture().draw();
-        meter.draw();
-
         for (GameObject object : gameObjects) {
             if (object.isCrashed()) {
                 continue;
