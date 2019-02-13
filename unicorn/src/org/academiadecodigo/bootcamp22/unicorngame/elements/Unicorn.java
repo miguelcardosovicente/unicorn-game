@@ -22,25 +22,7 @@ public class Unicorn implements KeyboardHandler {
 
         unicornPicture = new Picture(10, 50, "resources/unicornicon_right.png");
 
-        KeyboardEvent eventUp = new KeyboardEvent();
-        eventUp.setKey(KeyboardEvent.KEY_UP);
-        eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventUp);
-
-        KeyboardEvent eventDown = new KeyboardEvent();
-        eventDown.setKey(KeyboardEvent.KEY_DOWN);
-        eventDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventDown);
-
-        KeyboardEvent eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_LEFT);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        KeyboardEvent eventRight = new KeyboardEvent();
-        eventRight.setKey(KeyboardEvent.KEY_RIGHT);
-        eventRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventRight);
+        initKeyboard();
     }
 
     public int getHappiness() {
@@ -155,6 +137,29 @@ public class Unicorn implements KeyboardHandler {
             unicornPicture.translate(unicornPicture.getWidth(), 0);
         }
 
+    }
+
+    private void initKeyboard() {
+
+        KeyboardEvent eventUp = new KeyboardEvent();
+        eventUp.setKey(KeyboardEvent.KEY_UP);
+        eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(eventUp);
+
+        KeyboardEvent eventDown = new KeyboardEvent();
+        eventDown.setKey(KeyboardEvent.KEY_DOWN);
+        eventDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(eventDown);
+
+        KeyboardEvent eventLeft = new KeyboardEvent();
+        eventLeft.setKey(KeyboardEvent.KEY_LEFT);
+        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(eventLeft);
+
+        KeyboardEvent eventRight = new KeyboardEvent();
+        eventRight.setKey(KeyboardEvent.KEY_RIGHT);
+        eventRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(eventRight);
     }
 
     public enum Direction {
