@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp22.unicorngame;
 
 import org.academiadecodigo.bootcamp22.unicorngame.elements.HappinessMeter;
+import org.academiadecodigo.bootcamp22.unicorngame.elements.Sound;
 import org.academiadecodigo.bootcamp22.unicorngame.elements.TimeCounter;
 import org.academiadecodigo.bootcamp22.unicorngame.elements.Unicorn;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
@@ -17,12 +18,16 @@ public class Game {
     private Picture background;
     private Picture game_won;
     private Picture game_lost;
+    private Sound sound;
+
     private Unicorn unicorn;
     private TimeCounter timer;
     private HappinessMeter meter;
+
     private State state;
     private Menu menu;
     private ArrayList<GameObject> gameObjects;
+
     private int currentSecond;
 
     public Game() {
@@ -30,9 +35,12 @@ public class Game {
         background = new Picture(10, 50, "resources/background_sad.png");
         game_won = new Picture(10, 50, "resources/game_won.jpg");
         game_lost = new Picture(10, 50, "resources/game_lost.png");
+        sound = new Sound("rresources/music/game_song.wav");
+
         unicorn = new Unicorn();
         timer = new TimeCounter(59);
         meter = new HappinessMeter();
+
         menu = new Menu();
         gameObjects = new ArrayList<>();
         fillObjectsArray(INITIAL_NUMBER_OF_GAME_OBJECTS);
@@ -52,6 +60,8 @@ public class Game {
 
     private void init() {
 
+        sound.play(true);
+        sound.alwaysLoop();
         background.draw();
         unicorn.getUnicornPicture().draw();
         meter.draw();
@@ -89,6 +99,14 @@ public class Game {
             }
 
             checkCollision();
+        }
+
+        sound.stop();
+
+        if(state == State.LOST) {
+            sound = new Sound("rresources/music/lost_game.wav");
+            sound.play(true);
+            sound.alwaysLoop();
         }
 
         restart();
