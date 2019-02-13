@@ -78,7 +78,8 @@ public class Game {
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
-                fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
+                fillObjectsArray((int) Math.floor(Math.random() * 7 + 3));
+                removeObjects(2);
                 initImages();
             }
 
@@ -100,12 +101,28 @@ public class Game {
 
         sound.stop();
 
-        if(state == State.LOST) {
+        if (state == State.LOST) {
             sound = new Sound("rresources/music/lost_game.wav");
             sound.play(true);
             sound.alwaysLoop();
         }
         restart();
+    }
+
+    private void removeObjects(int quantity) {
+        int index = 0;
+        for (GameObject gameObject : gameObjects) {
+            if (!gameObject.isCrashed()) {
+                gameObject.getGameObjectPicture().delete();
+                gameObject.setCrashed();
+
+                if(index == quantity) {
+                    break;
+                }
+                System.out.println("index " + index);
+                index++;
+            }
+        }
     }
 
     private void restart() throws InterruptedException {
