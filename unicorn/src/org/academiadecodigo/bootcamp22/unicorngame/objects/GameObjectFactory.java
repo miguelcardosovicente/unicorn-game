@@ -11,27 +11,27 @@ public abstract class GameObjectFactory {
         }
 
         if(random < 0.22) {
-            return new GameObject(GameObjectsType.POOP);
+            return new GameObject(GameObjectsType.DONUT);
         }
 
         if(random < 0.35) {
-            return new GameObject(GameObjectsType.ROCK);
-        }
-
-        if(random < 0.48) {
-            return new GameObject(GameObjectsType.VAMPIRE);
-        }
-
-        if(random < 0.61) {
-            return new GameObject(GameObjectsType.CHERRY_POOP);
-        }
-
-        if(random < 0.74) {
             return new GameObject(GameObjectsType.CRYSTAL);
         }
 
+        if(random < 0.48) {
+            return new GameObject(GameObjectsType.CHERRY_POOP);
+        }
+
+        if(random < 0.61) {
+            return new GameObject(GameObjectsType.VAMPIRE);
+        }
+
+        if(random < 0.74) {
+            return new GameObject(GameObjectsType.ROCK);
+        }
+
         if(random < 0.87) {
-            return new GameObject(GameObjectsType.DONUT);
+            return new GameObject(GameObjectsType.POOP);
         }
 
         return new GameObject(GameObjectsType.RAINBOW);
