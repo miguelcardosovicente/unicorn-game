@@ -48,41 +48,38 @@ public class Game {
 
     public void start() throws InterruptedException {
 
-        state = State.MENU;
         state = menu.showMenu();
 
         if (state == State.GAME) {
-
             init();
             loop();
         }
     }
 
     private void init() {
-
+        /* INIT SOUND */
         sound.play(true);
         sound.alwaysLoop();
-        background.draw();
-        unicorn.getUnicornPicture().draw();
-        meter.draw();
-        drawObjects();
+
+        /* INIT IMAGES */
+        initImages();
+
+        /* INIT TIMER */
         timer = new TimeCounter(59);
         timer.start();
     }
 
     private void loop() throws InterruptedException {
-
         while (state == State.GAME) {
-
             Thread.sleep(DELAY);
             unicorn.move();
             updateBackground();
-            meter.updateMeter(unicorn.getHappiness());
+            meter.update(unicorn.getHappiness());
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
                 fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
-                drawObjects();
+                initImages();
             }
 
             if (unicorn.getHappiness() == 100) {
@@ -108,9 +105,7 @@ public class Game {
             sound.play(true);
             sound.alwaysLoop();
         }
-
         restart();
-
     }
 
     private void restart() throws InterruptedException {
@@ -155,23 +150,17 @@ public class Game {
 
 
     private void fillObjectsArray(int numberOfGameObjects) {
-
         for (int i = 0; i < numberOfGameObjects; i++) {
-
             GameObject gameObject = GameObjectFactory.getGameObject();
-
             //check if the same position has been given
             while (!safePicturePos(gameObject)) {
                 gameObject = GameObjectFactory.getGameObject();
             }
-
             gameObjects.add(gameObject);
-
         }
     }
 
     private boolean safePicturePos(GameObject gameObject) {
-
         for (int i = 0; i < gameObjects.size(); i++) {
 
             GameObject current = gameObjects.get(i);
@@ -183,18 +172,18 @@ public class Game {
                 return false;
             }
         }
-
         return true;
     }
 
-    private void drawObjects() {
+    private void initImages() {
+        background.draw();
+        unicorn.getUnicornPicture().draw();
+        meter.draw();
 
         for (GameObject object : gameObjects) {
-
             if (object.isCrashed()) {
                 continue;
             }
-
             object.getGameObjectPicture().draw();
         }
     }
@@ -208,7 +197,6 @@ public class Game {
         int unicornMaxY = Math.abs(unicorn.getUnicornPicture().getMaxY());
 
         for (GameObject object : gameObjects) {
-
             if (object.isCrashed()) {
                 continue;
             }
@@ -235,7 +223,6 @@ public class Game {
                 object.setCrashed();
 
             }
-
         }
     }
 
@@ -245,5 +232,4 @@ public class Game {
         LOST,
         WON
     }
-
 }

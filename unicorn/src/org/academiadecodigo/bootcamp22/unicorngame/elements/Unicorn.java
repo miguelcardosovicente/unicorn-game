@@ -16,6 +16,7 @@ public class Unicorn implements KeyboardHandler {
     private final int LOWER_GRID_LIMIT = 650;
     private final int LEFT_GRID_LIMIT = 10;
     private final int RIGHT_GRID_LIMIT = 610;
+
     private int happiness = 0;
 
     public Unicorn() {
@@ -30,7 +31,6 @@ public class Unicorn implements KeyboardHandler {
     }
 
     public void setHappiness(int score) {
-
         int total = this.happiness + score;
 
         if (total > 100) {
@@ -42,7 +42,6 @@ public class Unicorn implements KeyboardHandler {
             this.happiness = 0;
             return;
         }
-
         this.happiness = total;
     }
 
@@ -51,7 +50,6 @@ public class Unicorn implements KeyboardHandler {
     }
 
     public void move() {
-
         switch (direction) {
             case UP:
                 moveUp();
@@ -73,12 +71,10 @@ public class Unicorn implements KeyboardHandler {
                 stop();
                 break;
         }
-
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_UP:
                 direction = Direction.UP;
@@ -93,7 +89,6 @@ public class Unicorn implements KeyboardHandler {
                 direction = Direction.RIGHT;
                 break;
         }
-
     }
 
     @Override
@@ -106,41 +101,32 @@ public class Unicorn implements KeyboardHandler {
     }
 
     private void moveUp() {
-
         if (unicornPicture.getY() > UPPER_GRID_LIMIT) {
             unicornPicture.translate(0, -unicornPicture.getHeight());
         }
-
     }
 
     private void moveDown() {
-
         if (unicornPicture.getMaxY() < LOWER_GRID_LIMIT) {
             unicornPicture.translate(0, unicornPicture.getHeight());
         }
-
     }
 
     private void moveLeft() {
-
         if (unicornPicture.getX() > LEFT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_left.png");
             unicornPicture.translate(-unicornPicture.getWidth(), 0);
         }
-
     }
 
     private void moveRight() {
-
         if (unicornPicture.getMaxX() < RIGHT_GRID_LIMIT) {
             unicornPicture.load("resources/unicornicon_right.png");
             unicornPicture.translate(unicornPicture.getWidth(), 0);
         }
-
     }
 
     private void initKeyboard() {
-
         KeyboardEvent eventUp = new KeyboardEvent();
         eventUp.setKey(KeyboardEvent.KEY_UP);
         eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -163,12 +149,10 @@ public class Unicorn implements KeyboardHandler {
     }
 
     public enum Direction {
-
         UP,
         DOWN,
         LEFT,
         RIGHT,
         STOP
     }
-
 }

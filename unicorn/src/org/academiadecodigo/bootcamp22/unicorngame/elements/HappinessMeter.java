@@ -22,7 +22,7 @@ public class HappinessMeter {
         happinessFilling.fill();
     }
 
-    public void updateMeter(int happiness) {
+    public void update(int happiness) {
 
         happinessFilling.delete();
 
