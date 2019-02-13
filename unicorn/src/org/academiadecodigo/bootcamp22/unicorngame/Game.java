@@ -8,11 +8,12 @@ import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObject;
 import org.academiadecodigo.bootcamp22.unicorngame.objects.GameObjectFactory;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Game {
 
-    private final int DELAY = 40;
+    private final int DELAY = 10;
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
 
     private Picture background;
@@ -62,7 +63,7 @@ public class Game {
         sound.alwaysLoop();
 
         /* INIT IMAGES */
-        initImages();
+        drawImages();
 
         /* INIT TIMER */
         timer = new TimeCounter(59);
@@ -76,11 +77,14 @@ public class Game {
             updateBackground();
             meter.update(unicorn.getHappiness());
 
+            moveBadGuys();
+
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
                 fillObjectsArray((int) Math.floor(Math.random() * 7 + 3));
+
                 removeObjects(2);
-                initImages();
+                drawImages();
             }
 
             if (unicorn.getHappiness() == 100) {
@@ -107,6 +111,45 @@ public class Game {
             sound.alwaysLoop();
         }
         restart();
+    }
+
+    private void moveBadGuys() {
+        for (GameObject gameObject : gameObjects) {
+            if(!gameObject.isCrashed() && gameObject.getScore() < 0) {
+
+                System.out.println("gameobject removed bad guy");
+
+                Unicorn.Direction[] directions = Unicorn.Direction.values();
+                Unicorn.Direction choosenDirection = directions[(int) (Math.random() * directions.length)];
+
+                switch (choosenDirection) {
+                    case RIGHT:
+                        if(gameObject.getGameObjectPicture().getX() + gameObject.getGameObjectPicture().getWidth() > background.getWidth()) {
+                            return;
+                        }
+                        gameObject.getGameObjectPicture().translate(5, 0);
+                        break;
+                    case LEFT:
+                        if(gameObject.getGameObjectPicture().getX() - gameObject.getGameObjectPicture().getWidth() < 10) {
+                            return;
+                        }
+                        gameObject.getGameObjectPicture().translate(-5, 0);
+                        break;
+                    case DOWN:
+                        if(gameObject.getGameObjectPicture().getY() + gameObject.getGameObjectPicture().getHeight() > background.getHeight()) {
+                            return;
+                        }
+                        gameObject.getGameObjectPicture().translate(0, 5);
+                        break;
+                    case UP:
+                        if(gameObject.getGameObjectPicture().getY() + gameObject.getGameObjectPicture().getHeight() < 50) {
+                            return;
+                        }
+                        gameObject.getGameObjectPicture().translate(0, -5);
+                        break;
+                }
+            }
+        }
     }
 
     private void removeObjects(int quantity) {
@@ -191,7 +234,7 @@ public class Game {
         return true;
     }
 
-    private void initImages() {
+    private void drawImages() {
         background.draw();
         unicorn.getUnicornPicture().draw();
         meter.draw();
