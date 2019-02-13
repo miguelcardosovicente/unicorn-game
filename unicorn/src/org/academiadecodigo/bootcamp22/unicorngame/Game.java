@@ -119,7 +119,6 @@ public class Game {
                 if(index == quantity) {
                     break;
                 }
-                System.out.println("index " + index);
                 index++;
             }
         }
