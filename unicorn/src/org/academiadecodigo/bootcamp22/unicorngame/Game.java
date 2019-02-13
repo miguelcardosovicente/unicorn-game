@@ -142,7 +142,7 @@ public class Game {
                         gameObject.getGameObjectPicture().translate(0, 5);
                         break;
                     case UP:
-                        if(gameObject.getGameObjectPicture().getY() + gameObject.getGameObjectPicture().getHeight() < 50) {
+                        if(gameObject.getGameObjectPicture().getY() - gameObject.getGameObjectPicture().getHeight() < 50) {
                             return;
                         }
                         gameObject.getGameObjectPicture().translate(0, -5);
