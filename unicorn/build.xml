@@ -1,14 +1,16 @@
 <?xml version="1.0" ?>
-<project name="CarCrashX" default="jarfile">
+
+<project name="SugarSocksGame" default="jarfile">
 
     <!-- Initialize build properties  -->
     <target name="init" description="Initializes properties">
-        <property name="project.name" value="SugarSocksGame" />
+        <property name="project.name" value="unicorn" />
         <property name="src.dir" value="src" />
-        <property name="main.class" value="org.academiadecodigo.bootcamp.CarCrashX" />
+        <property name="main.class" value="org.academiadecodigo.bootcamp22.unicorngame.Main" />
         <property name="build.dir" value="build" />
         <property name="classes.dir" value="${build.dir}/classes" />
         <property name="lib.dir" value="lib" />
+        <property name="resources.dir" value="resources"/>
         <path id="classpath">
             <fileset dir="${lib.dir}" includes="**/*.jar" />
         </path>
@@ -36,9 +38,12 @@
         <jar destfile="${build.dir}/${project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}" />
-                <attribute name="Class-Path" value="${lib.dir}" />
+                <attribute name="Class-Path" value="${lib.dir} ${resources.dir}" />
             </manifest>
             <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+            <fileset dir=".">
+                <include name="**/${resources.dir}/**"/>
+            </fileset>
         </jar>
     </target>
 

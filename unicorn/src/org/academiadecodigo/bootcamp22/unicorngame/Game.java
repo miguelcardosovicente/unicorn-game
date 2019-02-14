@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private final int DELAY = 40;
+    private final int DELAY = 30;
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
 
     private Picture background;
@@ -81,7 +81,8 @@ public class Game {
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
-                fillObjectsArray((int) Math.floor(Math.random() * 4 + 1));
+                fillObjectsArray((int) Math.floor(Math.random() * 6 + 2));
+                removeObjects((int) Math.floor(Math.random() * 3));
                 drawObjects();
             }
 
@@ -121,7 +122,7 @@ public class Game {
 
     private void restart() throws InterruptedException {
 
-        Thread.sleep(3000);
+        Thread.sleep(4000);
 
         sound.stop();
         timer.getTimerText().delete();
@@ -203,6 +204,23 @@ public class Game {
             }
 
             object.getGameObjectPicture().draw();
+        }
+    }
+
+    private void removeObjects(int quantity) {
+        int index = 0;
+
+        for (GameObject gameObject : gameObjects) {
+
+            if (!gameObject.isCrashed()) {
+                gameObject.getGameObjectPicture().delete();
+                gameObject.setCrashed();
+
+                if(index == quantity) {
+                    break;
+                }
+                index++;
+            }
         }
     }
 
