@@ -4,7 +4,7 @@ public abstract class GameObjectFactory {
 
     public static GameObject getGameObject() {
 
-        double random = Math.random(); //12.5% chance of everything
+        double random = Math.random();
 
         if(random < 0.09) {
             return new GameObject(GameObjectsType.BLACKHOLE);

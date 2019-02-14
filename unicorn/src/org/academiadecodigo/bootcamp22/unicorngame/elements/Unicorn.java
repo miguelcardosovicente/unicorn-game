@@ -6,23 +6,23 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Unicorn implements KeyboardHandler {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Keyboard keyboard = new Keyboard(this);
-    private Picture unicornPicture;
-    private Direction direction = Direction.STOP;
+public class Unicorn implements KeyboardHandler {
 
     private final int UPPER_GRID_LIMIT = 50;
     private final int LOWER_GRID_LIMIT = 650;
     private final int LEFT_GRID_LIMIT = 10;
     private final int RIGHT_GRID_LIMIT = 610;
 
+    private Picture unicornPicture;
+    private Direction direction;
     private int happiness = 0;
 
     public Unicorn() {
-
         unicornPicture = new Picture(10, 50, "resources/unicornicon_right.png");
-
+        direction = Direction.STOP;
         initKeyboard();
     }
 
@@ -127,32 +127,19 @@ public class Unicorn implements KeyboardHandler {
     }
 
     private void initKeyboard() {
-        KeyboardEvent eventUp = new KeyboardEvent();
-        eventUp.setKey(KeyboardEvent.KEY_UP);
-        eventUp.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventUp);
+        Keyboard keyboard = new Keyboard(this);
+        List<Integer> keys = new ArrayList<>();
 
-        KeyboardEvent eventDown = new KeyboardEvent();
-        eventDown.setKey(KeyboardEvent.KEY_DOWN);
-        eventDown.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventDown);
+        keys.add(KeyboardEvent.KEY_UP);
+        keys.add(KeyboardEvent.KEY_DOWN);
+        keys.add(KeyboardEvent.KEY_LEFT);
+        keys.add(KeyboardEvent.KEY_RIGHT);
 
-        KeyboardEvent eventLeft = new KeyboardEvent();
-        eventLeft.setKey(KeyboardEvent.KEY_LEFT);
-        eventLeft.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventLeft);
-
-        KeyboardEvent eventRight = new KeyboardEvent();
-        eventRight.setKey(KeyboardEvent.KEY_RIGHT);
-        eventRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(eventRight);
-    }
-
-    public enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        STOP
+        for (Integer key : keys) {
+            KeyboardEvent event = new KeyboardEvent();
+            event.setKey(key);
+            event.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+            keyboard.addEventListener(event);
+        }
     }
 }

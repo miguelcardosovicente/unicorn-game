@@ -15,6 +15,7 @@ public class Game {
 
     private final int DELAY = 70;
     private final int INITIAL_NUMBER_OF_GAME_OBJECTS = 10;
+    private final int GAME_OBJECTS_REMOVED = 3;
 
     private Picture background;
     private Picture game_won;
@@ -32,9 +33,8 @@ public class Game {
     private int currentSecond;
 
     public Game() {
-
-        background = new Picture(10, 50, "resources/background.jpg");
-        game_won = new Picture(10, 50, "resources/game_won.jpg");
+        background = new Picture(10, 50, "resources/background_sad.png");
+        game_won = new Picture(10, 50, "resources/game_won.png");
         game_lost = new Picture(10, 50, "resources/game_lost.png");
 
         unicorn = new Unicorn();
@@ -47,7 +47,6 @@ public class Game {
     }
 
     public void start() throws InterruptedException {
-
         state = menu.showMenu();
 
         if (state == State.GAME) {
@@ -57,23 +56,17 @@ public class Game {
     }
 
     private void init() {
-        /* INIT SOUND */
         sound = new Sound("/resources/music/game_song.wav");
         sound.play(true);
         sound.alwaysLoop();
 
-        /* INIT IMAGES */
         background.draw();
         unicorn.getUnicornPicture().draw();
         meter.draw();
-
         drawImages();
 
-        /* INIT TIMER */
         timer = new TimeCounter(59);
         timer.start();
-
-
     }
 
     private void loop() throws InterruptedException {
@@ -82,37 +75,41 @@ public class Game {
             unicorn.move();
             updateBackground();
             meter.update(unicorn.getHappiness());
-
-            moveBadGuys();
+            moveBadGameObjects();
 
             if (currentSecond != timer.getSecondsLeft() && timer.getSecondsLeft() % 5 == 0) {
                 currentSecond = timer.getSecondsLeft();
 
-                Random random = new Random();
-                int randomNumber = random.nextInt(10 - 6) + 6;
-
-                fillObjectsArray(randomNumber);
-                removeObjects(3);
+                fillObjectsArray((int) (Math.random() * (10 - 6)) + 6);
+                removeObjects(GAME_OBJECTS_REMOVED);
 
                 drawImages();
             }
 
-            if (unicorn.getHappiness() == 100) {
-                game_won.draw();
-                timer.endTimer();
-                state = State.WON;
-                break;
-            }
-
-            if (timer.getSecondsLeft() == 0) {
-                game_lost.draw();
-                state = State.LOST;
-                break;
-            }
-
+            lostOrWon();
             checkCollision();
         }
 
+        finalScreen();
+        restart();
+    }
+
+    private void lostOrWon() {
+        if (unicorn.getHappiness() == 100) {
+            game_won.draw();
+            timer.endTimer();
+            state = State.WON;
+            return;
+        }
+
+        if (timer.getSecondsLeft() == 0) {
+            game_lost.draw();
+            state = State.LOST;
+            return;
+        }
+    }
+
+    private void finalScreen() {
         sound.stop();
 
         if (state == State.LOST) {
@@ -126,11 +123,9 @@ public class Game {
             sound.play(true);
             sound.alwaysLoop();
         }
-
-        restart();
     }
 
-    private void moveBadGuys() {
+    private void moveBadGameObjects() {
         for (GameObject gameObject: gameObjects) {
             gameObject.move();
         }
@@ -138,21 +133,23 @@ public class Game {
 
     private void removeObjects(int quantity) {
         int index = 0;
+
         for (GameObject gameObject : gameObjects) {
+
             if (!gameObject.isCrashed()) {
                 gameObject.getGameObjectPicture().delete();
                 gameObject.setCrashed();
 
-                if(index == quantity) {
+                if (index == quantity) {
                     break;
                 }
+
                 index++;
             }
         }
     }
 
     private void restart() throws InterruptedException {
-
         Thread.sleep(5000);
 
         sound.stop();
@@ -173,25 +170,19 @@ public class Game {
 
         state = State.MENU;
         menu = new Menu();
-
         start();
     }
 
     private void updateBackground() {
-
         if (unicorn.getHappiness() < 40) {
-            //sad
-            background.load("resources/background.jpg");
+            background.load("resources/background_sad.png");
             return;
         }
 
-        // hpapy
         if (unicorn.getHappiness() > 70) {
-            background.load("resources/background.jpg");
+            background.load("resources/background_happy.png");
             return;
         }
-
-        // medium
         background.load("resources/background.jpg");
     }
 
@@ -199,10 +190,11 @@ public class Game {
     private void fillObjectsArray(int numberOfGameObjects) {
         for (int i = 0; i < numberOfGameObjects; i++) {
             GameObject gameObject = GameObjectFactory.getGameObject();
-            //check if the same position has been given
+
             while (!safePicturePos(gameObject)) {
                 gameObject = GameObjectFactory.getGameObject();
             }
+
             gameObjects.add(gameObject);
         }
     }
@@ -224,15 +216,16 @@ public class Game {
 
     private void drawImages() {
         for (GameObject object : gameObjects) {
+
             if (object.isCrashed()) {
                 continue;
             }
+
             object.getGameObjectPicture().draw();
         }
     }
 
     private void checkCollision() {
-
         int unicornX = Math.abs(unicorn.getUnicornPicture().getX());
         int unicornY = Math.abs(unicorn.getUnicornPicture().getY());
 
@@ -264,7 +257,6 @@ public class Game {
                 object.getGameObjectPicture().delete();
                 unicorn.setHappiness(object.getScore());
                 object.setCrashed();
-
             }
         }
     }

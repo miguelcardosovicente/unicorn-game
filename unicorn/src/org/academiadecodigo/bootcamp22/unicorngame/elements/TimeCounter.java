@@ -12,7 +12,6 @@ public class TimeCounter {
     private int totalSeconds;
     private int secondsLeft;
     private Text timerText;
-    private Picture timerIcon;
 
     public TimeCounter(int totalSeconds) {
         timer = new Timer();
@@ -32,13 +31,12 @@ public class TimeCounter {
     }
 
     public void start() {
-
         secondsLeft = totalSeconds;
         timerText = new Text(525, 25, "00 : " + secondsLeft);
         timerText.grow(35, 15);
         timerText.draw();
 
-        timerIcon = new Picture(450, 10,"resources/game_clock.png");
+        Picture timerIcon = new Picture(453, 13,"resources/game_clock.png");
         timerIcon.draw();
 
         timer.schedule(new TimerTask() {
@@ -46,15 +44,15 @@ public class TimeCounter {
             public void run() {
                 secondsLeft--;
 
-                if(secondsLeft < 10) {
+                if (secondsLeft < 10) {
                     timerText.setText("00 : 0" + secondsLeft);
                 }
 
-                if(secondsLeft >= 10){
+                if (secondsLeft >= 10){
                     timerText.setText("00 : " + secondsLeft);
                 }
 
-                if(secondsLeft == 0) {
+                if (secondsLeft == 0) {
                     timer.cancel();
                 }
             }

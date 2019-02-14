@@ -11,34 +11,31 @@ public class Menu implements KeyboardHandler {
     private Keyboard keyboard = new Keyboard(this);
     private Game.State state;
 
-    private Picture menuPicture = new Picture(10, 10, "resources/game_menu.png");
+    private Picture menuPicture;
 
     public Menu() {
-
         KeyboardEvent eventStart = new KeyboardEvent();
         eventStart.setKey(KeyboardEvent.KEY_SPACE);
         eventStart.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(eventStart);
 
+        menuPicture = new Picture(10, 10, "resources/game_menu.png");
         state = Game.State.MENU;
     }
 
     public Game.State showMenu() throws InterruptedException {
-
         menuPicture.draw();
 
         while (state == Game.State.MENU) {
-            Thread.sleep(50);
+            Thread.sleep(70);
         }
 
         menuPicture.delete();
         return state;
-
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-
         if(keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
             state = Game.State.GAME;
         }
