@@ -36,7 +36,6 @@ public class Game {
         background = new Picture(10, 50, "resources/background.jpg");
         game_won = new Picture(10, 50, "resources/game_won.jpg");
         game_lost = new Picture(10, 50, "resources/game_lost.png");
-        sound = new Sound("rresources/music/game_song.wav");
 
         unicorn = new Unicorn();
         timer = new TimeCounter(59);
@@ -59,6 +58,7 @@ public class Game {
 
     private void init() {
         /* INIT SOUND */
+        sound = new Sound("/resources/music/game_song.wav");
         sound.play(true);
         sound.alwaysLoop();
 
@@ -116,10 +116,17 @@ public class Game {
         sound.stop();
 
         if (state == State.LOST) {
-            sound = new Sound("rresources/music/lost_game.wav");
+            sound = new Sound("/resources/music/lost_game.wav");
             sound.play(true);
             sound.alwaysLoop();
         }
+
+        if (state == State.WON) {
+            sound = new Sound("/resources/music/won_game.wav");
+            sound.play(true);
+            sound.alwaysLoop();
+        }
+
         restart();
     }
 
@@ -146,8 +153,9 @@ public class Game {
 
     private void restart() throws InterruptedException {
 
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
+        sound.stop();
         timer.getTimerText().delete();
         background.delete();
         unicorn.getUnicornPicture().delete();
